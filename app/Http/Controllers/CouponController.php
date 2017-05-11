@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Mail\ContactForm;
+use App\Mail\ContactForm;use App\Mail\SubscriptionSuccessful;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Mail;
@@ -37,7 +37,7 @@ class CouponController extends Controller {
 			$subscriber = Subscriber::firstOrNew(['list'=>$request->type,'email'=>$request->email]);
 			$subscriber->list = $request->type;
 			$subscriber->status = 'active';
-			$subscriber->save();
+			$subscriber->save();						/*							Email subscriber							*/						Mail::to( $request->email )->send( new SubscriptionSuccessful( $request->type == env('MAD_MIMI_MALES') ? 'males' : ( $request->type == env('MAD_MIMI_FEMALES') ? 'females' : ( $request->type == env('MAD_MIMI_FAMILIES') ? 'families' : '' ) ) ) );
 			/*
 				Flash success message to end user.
 			*/
@@ -142,7 +142,7 @@ class CouponController extends Controller {
 	{
 		if( $request->isMethod('post') )
 		{
-			Mail::to( env('APP_CONTACT_FORM_EMAIL') )->send( new ContactForm( $request->all() ) );
+			Mail::to( env('APP_CONTACT_FORM_EMAIL') )->send( new ContactForm( $request->all() ) );						$request->session()->flash('alert-success', __('app.contact_sent'));
 		}
 		return view('contact');
 	}

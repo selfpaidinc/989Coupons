@@ -83,7 +83,7 @@ return [
 	'support' => 'Support',
 	'other' => 'Other',
 	'message_placeholder' => 'Comments, suggestions, questions',
-	'contact_small_print' => 'All enquires receive a response within 48 hours.',
+	'contact_small_print' => 'All enquires receive a response within 48 hours.',		'contact_sent' => 'Your message has been successfully sent.', 
 	
 	/* coupon.blade.php */
 	'validity' => 'Validity:',

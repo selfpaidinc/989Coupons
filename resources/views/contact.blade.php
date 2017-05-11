@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Contact Us' )
+@section('title', __('app.contact_us') )
 
 @section('content')
 		<div class="row">
