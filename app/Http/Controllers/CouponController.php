@@ -134,7 +134,7 @@ class CouponController extends Controller {
 
 		for ( $i = $startTime; $i <= $endTime; $i = $i + 86400 ) {
 			$thisDate = date( 'Y-m-d', $i );
-			$bottomLine = $bottomLine + ( isset( $subscriptions[$thisDate] ) ? $sub_count : 0 );
+			$bottomLine = $bottomLine + ( isset( $subscriptions[$thisDate] ) ? $subscriptions[$thisDate] : 0 );
 			$lava->addRow([
 				$thisDate, $bottomLine
 			]);
