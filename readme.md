@@ -3,9 +3,9 @@
 <a href="http://www.989coupons.com">http://www.989coupons.com</a>
 
 <h2>Get it up</h2>
-php artisan key:generate
-php artisan migrate
+<code>php artisan key:generate
+php artisan migrate</code>
 
-login:
-domain.ltd/login
+login:<br />
+domain.ltd/login<br />
 admin@989coupons.com:temp1234
