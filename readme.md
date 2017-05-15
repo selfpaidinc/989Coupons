@@ -3,6 +3,8 @@
 <a href="http://www.989coupons.com">http://www.989coupons.com</a>
 
 <h2>Get it up</h2>
+<p>Edit .env file completely before continueing.</p>
+
 <p><code>php artisan key:generate</code></p>
 <p><code>php artisan migrate</code></p>
 
