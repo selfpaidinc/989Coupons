@@ -48,4 +48,7 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+Route::get('/terms', 'CouponController@terms')->name('terms');
+Route::get('/privacy', 'CouponController@privacy')->name('privacy');
+
 Route::get('/test', 'TestController@test')->name('test');

@@ -35,7 +35,7 @@ class CouponController extends Controller {
 				Update local database.
 			*/
 			$subscriber = Subscriber::firstOrNew(['list'=>$request->type,'email'=>$request->email]);
-			$subscriber->list = $request->type;
+			$subscriber->list = $request->type;						$subscriber->zip = $request->zip;
 			$subscriber->status = 'active';
 			$subscriber->save();						/*							Email subscriber							*/						Mail::to( $request->email )->send( new SubscriptionSuccessful( $request->type == env('MAD_MIMI_MALES') ? 'males' : ( $request->type == env('MAD_MIMI_FEMALES') ? 'females' : ( $request->type == env('MAD_MIMI_FAMILIES') ? 'families' : '' ) ) ) );
 			/*
@@ -70,9 +70,9 @@ class CouponController extends Controller {
 			$request->session()->flash('alert-success', __('app.unsubscribed_flash', ['app'=>env('APP_NAME')]));
 		}
 		return view('unsubscribe');
-	}
+	}	public function terms()	{		return view('terms');	}		public function privacy()	{		return view('privacy');	}
 	
-	public function advertise()
+	public function advertise(Request $request)
 	{
 		$counts['total'] = Subscriber::count();
 		$counts['males'] = Subscriber::where('list',env('MAD_MIMI_MALES'))->count();
@@ -119,14 +119,25 @@ class CouponController extends Controller {
 		]);
 		
 		$bottomLine = 0;
+		$firstDate = null;
 		
 		foreach( $subscriptions AS $date => $sub_count )
 		{
-			$newRow = $bottomLine + $sub_count;
+			if( $firstDate == null ) {
+				$firstDate = $date;
+				break;
+			}
+		}
+		
+		$startTime = strtotime( $firstDate );
+		$endTime = strtotime( date('Y-m-d') );
+
+		for ( $i = $startTime; $i <= $endTime; $i = $i + 86400 ) {
+			$thisDate = date( 'Y-m-d', $i );
+			$bottomLine = $bottomLine + ( isset( $subscriptions[$thisDate] ) ? $sub_count : 0 );
 			$lava->addRow([
-				$date, $newRow
+				$thisDate, $bottomLine
 			]);
-			$bottomLine = $bottomLine + $newRow;
 		}
 						
 		return view('advertise', ['subscriptions'=>$subscriptions, 'counts' => $counts, 'blocks' => $blocks]);

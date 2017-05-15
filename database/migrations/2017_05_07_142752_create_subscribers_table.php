@@ -17,6 +17,7 @@ class CreateSubscribersTable extends Migration
             $table->increments('id');
 			$table->enum('status', ['active', 'disabled']);
 			$table->enum('list', [env('MAD_MIMI_MALES'), env('MAD_MIMI_FEMALES'), env('MAD_MIMI_FAMILIES')]);
+			$table->string('zip',5);
 			$table->string('email');
             $table->timestamps();
         });
